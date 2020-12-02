@@ -1,0 +1,17 @@
+{
+    "name": "demo-dummy-back-end",
+    "private": true,
+    "version": "0.0.0",
+    "description": "Paginated table dummy backend",
+    "repository": "https://github.com/angular/angular-seed",
+    "license": "",
+    "devDependencies": {
+        "express": "4.x"
+    },
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "jimp": "^0.16.1"
+    }
+}

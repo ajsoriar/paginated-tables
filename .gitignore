@@ -24,3 +24,4 @@ yarn-error.log*
 
 # andres
 _.*
+/server/node_modules/
