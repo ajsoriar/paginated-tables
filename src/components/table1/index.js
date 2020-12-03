@@ -37,6 +37,7 @@ class Table extends Component {
         const { data } = this.state;
 
         return <>
+            <h1>{this.props.title}</h1>
             <table className="table" border="2">
                 <thead>
                     <tr>

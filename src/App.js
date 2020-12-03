@@ -4,7 +4,7 @@ import Table from './components/tableOne';
 function App() {
   return (
     <div className="App">
-        <Table></Table>
+        <Table title={'Simple table'}></Table>
     </div>
   );
 }
