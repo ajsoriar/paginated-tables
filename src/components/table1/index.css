@@ -1,4 +1,14 @@
-table {
+.table {
     background-color: #eeeeee;
     margin: 10px;
+}
+
+.controls{
+    background-color: #dddddd;
+    margin: 10px;
+}
+
+h1 {
+    text-align: left;
+    padding-left: 10px;
 }

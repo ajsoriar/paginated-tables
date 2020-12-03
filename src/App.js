@@ -1,10 +1,12 @@
 import './App.css';
-import Table from './components/tableOne';
+import Table1 from './components/table1';
+import Table2 from './components/table2';
 
 function App() {
   return (
     <div className="App">
-        <Table title={'Simple table'}></Table>
+        <Table2 title={'Table: Show loading ...'}></Table2>
+        <Table1 title={'Simple table'}></Table1>
     </div>
   );
 }
