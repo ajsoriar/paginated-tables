@@ -12,12 +12,20 @@ var app = express();
 
 app.use((req, res, next) => {
     console.log("2! req.url:", req.url );
-    next();
+    res.header('Access-Control-Allow-Origin', '*');
+    setTimeout(()=>{
+        next();           
+    },2000)  
 });
 
 app.get("/data", function(req, res) {
     console.log("data! \n");
-    res.sendFile( __dirname + '/data/data.json');
+    res.sendFile( __dirname + '/data/data.json'); 
+});
+
+app.get("/pictures", function(req, res) {
+    console.log("pictures! \n");
+    res.sendFile( __dirname + '/data/pictures.json'); 
 });
 
 // ------------------------------------------------------
