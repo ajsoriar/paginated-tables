@@ -15,7 +15,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     setTimeout(()=>{
         next();           
-    },2000)  
+    },1000)  
 });
 
 app.get("/data", function(req, res) {
