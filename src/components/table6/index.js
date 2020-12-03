@@ -1,21 +1,22 @@
 import React from 'react';
 import { Component } from 'react';
 
-const DATA_URL = 'http://localhost:9003/pictures';
+const DATA_URL = 'http://localhost:9003/pictures2'; // Examples: http://localhost:9003/pictures?page=0 OR http://localhost:9003/pictures?page=0&rows=1
 
 class Table extends Component {
 
     state = {
         page: 0,
-        data: null
+        data: null,
+        numOfItems: null
     };
 
     componentDidMount() {
-        this.getDataFromBack();
+        this.getDataFromBack(0);
     }
 
-    getDataFromBack() {
-        fetch(DATA_URL)
+    getDataFromBack(newPage) {
+        fetch(DATA_URL + '?page='+ newPage +'&rows='+ this.props.maxRows )
             .then((response) => {
                 return response.json()
             })
@@ -23,7 +24,11 @@ class Table extends Component {
                 // Work with JSON data here
                 console.log(data)
 
-                this.setState({"data": data.data});
+                this.setState({
+                    "data": data.data,
+                    "numOfItems": data.numOfItems *1,
+                    "page": data.pageNum *1
+                });
             })
             .catch((err) => {
                 // Do something for an error here
@@ -31,29 +36,19 @@ class Table extends Component {
     }
 
     btnReload = () => {
-        this.setState({data: null}, this.getDataFromBack() );
-    }
-
-    getRowsFromData = ( data, page, maxRows ) => {
-        if ( !data ) return data;
-        var arr = [];
-        var startRow = page * maxRows;
-        var endRow = startRow + maxRows;
-        if ( endRow > data.length ) endRow = data.length;
-        for ( var i = startRow; i < endRow; i++ ) arr.push( data[i] );
-        return arr
+        this.setState({data: null}, this.getDataFromBack(0) );
     }
 
     btnNextPage= () => {
         var p = this.state.page;
         console.log("next! page: ", p++ );
-        this.setState({page: p});
+        this.getDataFromBack(p);
     }
 
     btnPreviousPage= () => {
         var p = this.state.page;
         console.log("previous! page: ", p-- );
-        this.setState({page: p});
+        this.getDataFromBack(p);
     }
     
     render() {
@@ -62,9 +57,9 @@ class Table extends Component {
         const { title, details, maxRows } = this.props;
         if ( data === null) return <div>Loading data ...</div>
 
-        var numOfItems = data.length;
+        var numOfItems = this.state.numOfItems;
         var numOfPages = Math.floor( numOfItems / maxRows ) +1;
-        var tableData = this.getRowsFromData( data, page, maxRows );
+        var tableData = data; //this.getRowsFromData( data, page, maxRows );
 
         return <>
             <h1>{title}</h1>

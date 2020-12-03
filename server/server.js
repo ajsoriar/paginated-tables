@@ -25,10 +25,10 @@ app.get("/data", function(req, res) {
     res.sendFile( __dirname + '/data/data.json'); 
 });
 
-// app.get("/pictures", function(req, res) {
-//     console.log("pictures! \n");
-//     res.sendFile( __dirname + '/data/pictures.json'); 
-// });
+app.get("/pictures", function(req, res) {
+    console.log("pictures! \n");
+    res.sendFile( __dirname + '/data/pictures.json'); 
+});
 
 const getRowsFromData = ( data, page, maxRows ) => {
     var arr = [];
@@ -39,7 +39,7 @@ const getRowsFromData = ( data, page, maxRows ) => {
     return arr
 }
 
-app.get( "/pictures", function(req, res) { // Examples: http://localhost:9003/pictures?page=0 OR http://localhost:9003/pictures?page=0&rows=1
+app.get( "/pictures2", function(req, res) { // Examples: http://localhost:9003/pictures?page=0 OR http://localhost:9003/pictures?page=0&rows=1
 
     var urlParams = Utils.getParamsAsObject(req.url);
     console.log("urlParams:", urlParams );
@@ -57,7 +57,10 @@ app.get( "/pictures", function(req, res) { // Examples: http://localhost:9003/pi
     var obj = JSON.parse(fs.readFileSync(__dirname + '/data/pictures.json', 'utf8'));
 
     // get desired items
-    var response = {data: getRowsFromData( obj.data, page, rows ) };
+    var response = {
+        numOfItems: obj.data.length,
+        pageNum: page,
+        data: getRowsFromData( obj.data, page*1, rows*1 ) };
 
     // close
     res.json( response );
