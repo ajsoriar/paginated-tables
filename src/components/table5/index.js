@@ -24,7 +24,7 @@ class Table extends Component {
                 // Work with JSON data here
                 console.log(data)
 
-                this.setState({"data": data.data});
+                this.setState({"data": data.data, "error": false});
             })
             .catch((err) => {
                 // Do something for an error here
@@ -96,7 +96,7 @@ class Table extends Component {
                 </tbody>
             </table>
             <div className="controls">
-                <button className="reload-btn" disabled={data === null} onClick={this.btnReload}>Reload</button>
+                <button className="reload-btn" onClick={this.btnReload}>Reload</button>
                 <button className="previous-page-btn" disabled={data === null || this.state.page === 0} onClick={this.btnPreviousPage}>Previous</button>
                 <button className="next-page-btn" disabled={data === null || (page+1) === numOfPages} onClick={this.btnNextPage}>Next</button> 
                 <br/>

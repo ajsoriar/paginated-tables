@@ -80,11 +80,12 @@ export default class LikeDislike extends Component {
         if ( dislike ) strDisLikeclass += " disliked";
         
         return (
-            <>
-                <div>
-                    <h3>For sure you like all this examples!</h3>
-                </div>
+            <div className="likeDislike">
+                <h4>For sure you like all this examples!</h4>
                 <style>{`
+                    .likeDislike {
+                        text-align: center;
+                    }
                     .like-button, .dislike-button {
                         font-size: 1rem;
                         padding: 5px 10px;
@@ -107,7 +108,7 @@ export default class LikeDislike extends Component {
                 </div>
                 <br/>
                 By Andres!
-            </>
+            </div>
         );
     }
 }

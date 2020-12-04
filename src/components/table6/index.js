@@ -1,5 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
+import GoToPage from './../goToPage';
 
 const DATA_URL = 'http://localhost:9003/pictures2'; // Examples: http://localhost:9003/pictures?page=0 OR http://localhost:9003/pictures?page=0&rows=1
 
@@ -17,7 +18,7 @@ class Table extends Component {
     }
 
     handleErrors(response) {
-        console.log("Err 1!");
+        console.log("Check if Err 1!");
         if (!response.ok) {
             throw Error(response.statusText);
         }
@@ -36,7 +37,8 @@ class Table extends Component {
                 this.setState({
                     "data": data.data,
                     "numOfItems": data.numOfItems *1,
-                    "page": data.pageNum *1
+                    "page": data.pageNum *1,
+                    "error": false
                 });
             })
             .catch((err) => {
@@ -49,15 +51,11 @@ class Table extends Component {
     }
 
     btnNextPage = () => {
-        var p = this.state.page;
-        console.log("next! page: ", p++ );
-        this.getDataFromBack(p);
+        this.getDataFromBack(this.state.page +1);
     }
 
     btnPreviousPage = () => {
-        var p = this.state.page;
-        console.log("previous! page: ", p-- );
-        this.getDataFromBack(p);
+        this.getDataFromBack(this.state.page -1);
     }
 
     btnFirstPage = () => {
@@ -66,6 +64,10 @@ class Table extends Component {
 
     btnLastPage = () => {
         this.getDataFromBack( this.getNumOfPages() -1 );
+    }
+
+    goToPage = ( pageNum ) => {
+        this.getDataFromBack(pageNum);
     }
 
     getNumOfPages = () => {
@@ -109,8 +111,9 @@ class Table extends Component {
                     }
                 </tbody>
             </table>
+            { (data && !error ) && <GoToPage currentPage={this.state.page} numOfPages={numOfPages} selectPageFunc={this.goToPage}></GoToPage> }
             <div className="controls">
-                <button className="reload-btn" disabled={data === null} onClick={this.btnReload}>Reload</button>
+                <button className="reload-btn" onClick={this.btnReload}>Reload</button>
                 <button className="first-page-btn" disabled={data === null || this.state.page === 0} onClick={this.btnFirstPage}>First</button>
                 <button className="previous-page-btn" disabled={data === null || this.state.page === 0} onClick={this.btnPreviousPage}>Previous</button>
                 <button className="next-page-btn" disabled={data === null || (page+1) === numOfPages} onClick={this.btnNextPage}>Next</button> 

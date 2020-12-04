@@ -16,6 +16,7 @@ function App() {
         <Table3 title={'Table 3: Real fetch from back'}></Table3>
         <Table2 title={'Table 2: Show loading ...'}></Table2>
         <Table1 title={'1st table'}></Table1>
+        <hr/>
         <LikeDislike></LikeDislike>
     </div>
   );
