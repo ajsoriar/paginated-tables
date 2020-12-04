@@ -7,7 +7,8 @@ class Table extends Component {
 
     state = {
         page: 0,
-        data: null
+        data: null,
+        error: false
     };
 
     componentDidMount() {
@@ -27,6 +28,7 @@ class Table extends Component {
             })
             .catch((err) => {
                 // Do something for an error here
+                this.setState({ error: true });
             })
     }
 
@@ -58,11 +60,10 @@ class Table extends Component {
     
     render() {
 
-        const { data, page } = this.state;
+        const { data, page, error } = this.state;
         const { title, details, maxRows } = this.props;
-        if ( data === null) return <div>Loading data ...</div>
 
-        var numOfItems = data.length;
+        var numOfItems = !data?0:data.length;
         var numOfPages = Math.floor( numOfItems / maxRows ) +1;
         var tableData = this.getRowsFromData( data, page, maxRows );
 
@@ -79,8 +80,9 @@ class Table extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    { data === null && <tr><td colSpan="4">Loading data ...</td></tr> }
-                    { data != null && <>
+                    { (!data && !error ) && <tr><td colSpan="4">Loading data ...</td></tr> }
+                    { (!data && error ) && <tr><td colSpan="4">ERROR: Is the server running?</td></tr> }
+                    { (data && !error ) && <>
                             { !tableData.length && <tr><td colSpan="4">No data in this table</td></tr> } 
                             { tableData.length > 0 && tableData.map(( item, index ) => <tr key={index}>
                                     <td>{ item.id }</td>
@@ -98,7 +100,7 @@ class Table extends Component {
                 <button className="previous-page-btn" disabled={data === null || this.state.page === 0} onClick={this.btnPreviousPage}>Previous</button>
                 <button className="next-page-btn" disabled={data === null || (page+1) === numOfPages} onClick={this.btnNextPage}>Next</button> 
                 <br/>
-                Items: {numOfItems} | Page Num: {page +1} | Num of pages: { numOfPages } 
+                { (data && !error) && <> Items: {numOfItems} | Page Num: {page +1} | Num of pages: { numOfPages } </> }
             </div>
         </>
     }

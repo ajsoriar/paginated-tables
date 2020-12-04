@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  padding-bottom: 32px;
+}
+
+button{
+  cursor: pointer;
+  margin-right: 5px;
+}

@@ -1,6 +1,6 @@
 # React paginated table
 
-This project is an example of paginated tables / React.js components. The pagination is managed in front side and in backend dempending on the example.
+This project is an example of paginated tables / React.js components. The pagination is managed in the front-end or on the server side depending on the example / component.
 
 ![react-paginated-tables example](./demo/demo.jpg?raw=true "react-paginated-tables example")
 
@@ -21,6 +21,13 @@ The backend needed to get this project to work is in `server` directory.
 ```
 
 A server will be launched in `http://localhost:9003/`
+
+#### Available end points to try
+
+- <http://localhost:9003/data>
+- <http://localhost:9003/pictures>
+- <http://localhost:9003/pictures2?page=1>
+- <http://localhost:9003/pictures2?page=0&rows=1>
 
 ### Front-end
 
